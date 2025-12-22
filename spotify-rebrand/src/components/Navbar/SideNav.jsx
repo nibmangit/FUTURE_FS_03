@@ -1,4 +1,5 @@
 import {Home, Library, Search, Gem} from 'lucide-react' 
+import { useNavigate } from 'react-router-dom';
 
 const navItems = [
   { id: 'home', label: 'Discover', icon: Home },
@@ -9,6 +10,7 @@ const navItems = [
 
 
 function SideNav() { 
+  const navigate = useNavigate();
     return ( 
     <div className={`hidden lg:block w-64 h-screen p-6 sticky top-0  rounded-none`}>
        <div className="flex items-center gap-3 mb-10">
@@ -24,7 +26,8 @@ function SideNav() {
         {navItems.map(item => { 
           return (
             <button
-              key={item.id} 
+              key={item.id}
+              onClick={()=>navigate(`/${item.id}`)}
               className={`flex items-center w-full p-3 rounded-xl font-medium transition-all duration-200
                             text-white/70 hover:bg-white/5 hover:text-[#00E5FF] cursor-pointer
                           `}
