@@ -1,7 +1,12 @@
+import SideNav from "./components/Navbar/SideNav"
+import BottomPlayer from "./components/Player/BottomPlayer"
+
 function App() {
     return (
-        <div className="bg-[#121212] text-gray-500">
-            <h1>Setting up the environments</h1>
+        <div className="min-h-screen bg-[#050505] text-white font-['Inter',sans-serif] relative">
+            <SideNav />
+
+            <BottomPlayer />
         </div>
     )
 }
