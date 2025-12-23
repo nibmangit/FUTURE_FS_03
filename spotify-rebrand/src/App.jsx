@@ -6,6 +6,7 @@ import SearchPage from './pages/SearchPage'
 import PremiumPage from './pages/PremiumPage'
 import MainContentHeader from './components/Navbar/MainContentHeader'
 import Footer from './components/Navbar/Footer' 
+import LibraryPage from './pages/LibraryPage'
 
 function App() {
     return (
@@ -18,8 +19,9 @@ function App() {
             <Routes> 
                 <Route path='/' element={ <HomePage />} />
                 <Route path='/home' element={ <Navigate to='/'  />} />
-                 <Route path='/search' element={ <SearchPage />} />
-               <Route path='/premium' element={ <PremiumPage />} /> 
+                <Route path='/search' element={ <SearchPage />} />
+                <Route path='/premium' element={ <PremiumPage />} /> 
+                <Route path='library' element ={<LibraryPage />} />
            
             </Routes>
             <Footer />

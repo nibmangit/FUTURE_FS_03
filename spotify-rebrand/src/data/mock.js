@@ -1,4 +1,4 @@
-import { Coffee, Zap, Rocket, Music, Cloud, Mic2, Cpu, Radio } from 'lucide-react'; 
+
 export const mockHomepage = {
     heroTitle: 'Dive Into The Starlight Drive',
     heroSubtitle: "Your personalized journey through tomorrow's soundscape.",
@@ -44,6 +44,50 @@ export const mockPlaylists = [
     isFeatured: true,
     tracks: []
   },
+
+    { 
+        id: 'p_005', 
+        title: 'Digital Dreams', 
+        description: '50 tracks', 
+        image: "/assets/images/playlists/digital-dreams.png", 
+        genre: 'R&B', 
+        isFeatured: false,
+        tracks: []
+    },
+    { 
+        id: 'p_006', 
+        title: 'Lo-Fi Grid', 
+        description: '33 tracks', 
+        image: "/assets/images/playlists/lofi-grid.png",
+        genre: 'Lo-Fi', 
+        isFeatured: false,
+        tracks: []
+    },
+    { 
+        id: 'p_007', 
+        title: 'Neon Nights', 
+        description: '18 tracks', 
+        image: "/assets/images/playlists/neon-nights.png",
+        genre: 'Ambient', 
+        isFeatured: false,
+        tracks: []
+    },
+    { 
+        id: 'p_008', 
+        title: 'Hyper Drive', 
+        description: '45 tracks, 2h 15m', 
+        image: "/assets/images/playlists/hyper-drive.png",  
+        genre: 'Synthwave', 
+        isFeatured: false,
+        tracks: [
+            { id: 't_001', title: 'Neon Dust', artist: 'Synthmage', duration: '3:45' },
+            { id: 't_002', title: 'Arcade Dream', artist: 'Pixel Priest', duration: '4:12' },
+            { id: 't_003', title: 'City Lights', artist: 'Vector Vibe', duration: '3:50' },
+            { id: 't_004', title: 'Hyperloop', artist: 'Grid Runner', duration: '2:59' },
+            { id: 't_005', title: 'Zero Gravity', artist: 'Aetheria', duration: '5:01' },
+            { id: 't_006', title: 'Digital Heartbeat', artist: 'Data Ghost', duration: '3:33' },
+        ]
+    },
 ]
  
 export const mockGenres = [
@@ -86,5 +130,36 @@ export const mockPricingPlans = [
       features: ['Up to 6 accounts', 'Ad-free experience', 'Parental controls', 'Family Mix playlists'],
       highlighted: true,
     } 
+];
+
+export const mockArtists = [
+    { id: 'art_001', name: 'Aetheria', genre: 'Synthwave', image: "/assets/images/artists/aertheria.png", },
+    { id: 'art_002', name: 'Data Ghost', genre: 'Future Pop', image:"/assets/images/artists/data-ghost.png", },
+    { id: 'art_003', name: 'Grid Runner', genre: 'Chillhop', image: "/assets/images/artists/grid-runner.png", },
+    { id: 'art_004', name: 'Pixel Priest', genre: 'Cyberpop', image: "/assets/images/artists/pixel-priest.png", },
+    { id: 'art_004', name: 'Synthrunner', genre: 'Future Bass', image: "/assets/images/artists/synthrunner.png", },
+    { id: 'art_004', name: 'Zero Bloom', genre: 'Ambient Glitch', image: "/assets/images/artists/zero-bloom.png", },
+];
+
+export const mockAlbums = [
+    { id: 'alb_001', title: 'Neon Nights', subtitle: '2025', image:"/assets/images/albums/neon-night.png", genre: 'Synthwave' },
+    { id: 'alb_002', title: 'Echoes', subtitle: '2024', image: "/assets/images/albums/echoes.png", genre: 'Ambient' },
+    { id: 'alb_003', title: 'Digital Dawn', subtitle: '2023', image:"/assets/images/albums/digital-down.png", genre: 'Future Pop' },
+    { id: 'alb_004', title: 'Warp Speed', subtitle: '2025', image: "/assets/images/albums/warp-speed.png", genre: 'Trance' },
+    { id: 'alb_004', title: 'Cyber Pulse', subtitle: '2026', image: "/assets/images/albums/cyber-pulse.png", genre: 'Trance' },
+]; 
+
+export const mockTracks = [
+    { id: 't_101', title: 'Hyperloop', artist: 'Grid Runner', album: 'Warp Speed' },
+    { id: 't_102', title: 'Zero Gravity', artist: 'Aetheria', album: 'Neon Nights' },
+    { id: 't_103', title: 'Digital Heartbeat', artist: 'Data Ghost', album: 'Digital Dawn' },
+    { id: 't_104', title: 'Electric Echoes', artist: 'Future Funk', album: 'Future R&B' },
+];
+
+export const mockRecents = [
+    { id: 'r_001', type: 'Playlist', title: 'Hyper Drive', subtitle: 'Today', image: "/assets/images/playlists/hyper-drive.png",  },
+    { id: 'r_002', type: 'Artist', title: 'Data Ghost', subtitle: 'Yesterday', image: "/assets/images/artists/data-ghost.png" },
+    { id: 'r_003', type: 'Album', title: 'Echoes', subtitle: '2 days ago', image: "/assets/images/albums/echoes.png" },
+    { id: 'r_004', type: 'Track', title: 'Neon Dust', subtitle: 'Synthmage • 3 days ago' },
 ];
  
