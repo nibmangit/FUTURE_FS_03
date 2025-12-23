@@ -1,4 +1,4 @@
-function GenreCard({ name, gradient, image, icon:IconComponent }) {
+function GenreCard({ name, gradient, image, icon }) {
   return (
     <div 
       className={`h-40 rounded-3xl p-5 flex flex-col justify-between relative overflow-hidden cursor-pointer 
@@ -7,11 +7,7 @@ function GenreCard({ name, gradient, image, icon:IconComponent }) {
     > 
       <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />
  
-      <div className="relative z-10 w-10 h-10 rounded-xl bg-white/10 backdrop-blur-md 
-                      border border-white/20 flex items-center justify-center 
-                      text-white shadow-lg group-hover:scale-110 transition-transform">
-        {IconComponent && <IconComponent size={20} />}
-      </div> 
+      <div className="relative z-10 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-lg">{icon}</div>
       <h3 className="text-xl font-black relative z-10 leading-tight drop-shadow-md text-white">
         {name}
       </h3> 

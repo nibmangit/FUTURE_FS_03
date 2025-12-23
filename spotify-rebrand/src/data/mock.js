@@ -1,100 +1,90 @@
-import { Coffee, Zap, Rocket, Music, Cloud, Mic2, Cpu, Radio } from 'lucide-react';
-
-export const playlists = [
+import { Coffee, Zap, Rocket, Music, Cloud, Mic2, Cpu, Radio } from 'lucide-react'; 
+export const mockHomepage = {
+    heroTitle: 'Dive Into The Starlight Drive',
+    heroSubtitle: "Your personalized journey through tomorrow's soundscape.",
+    heroImage: "/assets/images/hero/Hero-1.png",
+    ctaPrimary: 'START DISCOVERY',
+    ctaSecondary: 'VIEW ALL',
+    featuredPlaylistIds: ['p_001', 'p_002', 'p_003', 'p_004'], // These will map to the playlists below
+};
+export const mockPlaylists = [
   {
-    title: "Synthwave",
-    subtitle: "80s Neon Drive",
+    id: 'p_001', 
+    title: 'Synthwave', 
+    description: '80s Vibes', 
     image: "/assets/images/playlists/synthwave.png",
+    genre: 'Synthwave', 
+    isFeatured: true,
+    tracks: []
   },
- {
-    title: "Cyberpop",
-    subtitle: "Top 100 Hits",
+ {  
+    id: 'p_002', 
+    title: 'Cyberpop', 
     image: "/assets/images/playlists/cyberpop.png",
+    description: 'Top 100',   
+    genre: 'Pop', 
+    isFeatured: true,
+    tracks: []
   },
- {
-    title: "Future Bass",
-    subtitle: "Heavy Drops",
-    image: "/assets/images/playlists/future-bass.png",
+ {  
+    id: 'p_003', 
+    title: 'Future Bass', 
+    description: 'Heavy Drops', 
+    image: "/assets/images/playlists/future-bass.png", 
+    genre: 'Bass', 
+    isFeatured: true,
+    tracks: []
    },
  {
-    title: "Ambient Glitch",
-    subtitle: "Digital Calm",
-    image: "/assets/images/playlists/ambient-glitch.png",
+    id: 'p_004', 
+    title: 'Ambient Glitch', 
+    description: 'Relax', 
+    image: "/assets/images/playlists/ambient-glitch.png",  
+    genre: 'Ambient', 
+    isFeatured: true,
+    tracks: []
   },
 ]
+ 
+export const mockGenres = [
+    // Discovery Hub Categories (used in HomePage)
+    { id: 'g_001', name: 'Lo-Fi Beats', gradient: 'from-purple-500 to-indigo-700', icon: '🎧' },
+    { id: 'g_002', name: 'High-Tech Trance', gradient: 'from-[#00E5FF] to-teal-500', icon: '⚡' },
+    { id: 'g_003', name: 'Warp Speed Pop', gradient: 'from-pink-500 to-red-600', icon: '🚀' },
+    { id: 'g_004', name: 'Neo-Classical', gradient: 'from-gray-700 to-gray-500', icon: '🎻' },
 
- export const categories = [{
-    name: "Lo-Fi Beats",
-    gradient: "from-[#6D28D9] to-[#00E5FF]",
-    image: "/assets/images/genres/lo-fi-beats.png",
-    icon: Coffee,
- },
-
-  {
-    name: "High-Tech Trance",
-    gradient: "from-[#22FF88] to-[#00E5FF]",
-    image: "/assets/images/genres/high-tech.png",
-    icon: Cpu,
-  },
-
-  {
-    name: "Warp Speed Pop",
-    gradient: "from-orange-500 to-yellow-500",
-    image: "/assets/images/genres/warp-speed-pop.png",
-    icon: Rocket,
-  },
- {
-    name: "Neo-Classical",
-    gradient: "from-pink-500 to-red-500",
-    image: "/assets/images/genres/neo-classical.png",
-    icon: Music,
-  },
- {
-    name: "Ambient Space",
-    gradient: "from-[#020617] to-[#3B82F6]",
-    image: "/assets/images/genres/ambient-space.png",
-    icon: Cloud,
-   },
-   {
-    name: "Cyber Jazz",
-    gradient: "from-[#064E3B] to-[#22FF88]",
-    image: "/assets/images/genres/cyber-jazz.png",
-    icon: Radio,
-   },
-
-  {
-    name: "Digital Trap",
-    gradient: "from-[#111827] to-[#7C3AED]",
-    image: "/assets/images/genres/digital-trap.png",
-    icon: Zap,
-   },
-
-  {
-    name: "Synth Pop",
-    gradient: "from-[#00E5FF] to-[#EC4899]",
-    image: "/assets/images/genres/synth-pop.png",
-    icon: Mic2,
-   }
-]
-
-
-export const plans = [
+    // Global Rhythms Categories (used in SearchPage)
+    { id: 'g_005', name: 'Ambient', gradient: 'from-blue-900 to-purple-800', icon: '☁️' },
+    { id: 'g_006', name: 'Drill', gradient: 'from-red-900 to-black', icon: '🔪' },
+    { id: 'g_007', name: 'Vaporwave', gradient: 'from-[#00E5FF] to-pink-500', icon: '💾' },
+    { id: 'g_008', name: 'Jazz Fusion', gradient: 'from-green-700 to-teal-500', icon: '🎷' },
+    { id: 'g_009', name: 'Hardcore', gradient: 'from-yellow-500 to-red-600', icon: '🔥' },
+    { id: 'g_010', name: 'Trap', gradient: 'from-[#6D28D9] to-black', icon: '⛓️' },
+    { id: 'g_011', name: 'Pop', gradient: 'from-pink-500 to-purple-400', icon: '✨' },
+    { id: 'g_012', name: 'Dubstep', gradient: 'from-[#22FF88] to-cyan-500', icon: '🔊' },
+];
+ 
+export const mockPricingPlans = [
     {
-      plan: "Free Tier",
-      price: "$0",
-      isPremium: false,
-      features: ['Ad-supported listening', 'Standard audio quality', 'Mobile access']
+        id: 'plan_001',
+        name: 'Free Tier',
+        price: '$0',
+        features: ['Ad-supported listening', 'Standard audio quality', 'Mobile access'],
+        highlighted: false,
     },
     {
-      plan: "Cyber Pro",
-      price: "$9.99",
-      isPremium: true,
-      features: ['Ad-free experience', 'Lossless Hi-Fi audio', 'Unlimited downloads', 'Exclusive Cyber Beats']
-    },
-    {
-      plan: "Nexus Family",
+        id: 'plan_002',
+        name: 'Cyber Pro',
+        price: '$9.99',
+        features: ['Ad-free experience', 'Lossless audio quality', 'Unlimited downloads', 'Full access to all libraries', 'Friend Activity Panel on mobile'],
+        highlighted: true,
+    }, 
+     {
+      id: 'plan_003',
+      name: "Nexus Family",
       price: "$14.99",
-      isPremium: true,
-      features: ['Up to 6 accounts', 'Ad-free experience', 'Parental controls', 'Family Mix playlists']
-    }
-  ];
+      features: ['Up to 6 accounts', 'Ad-free experience', 'Parental controls', 'Family Mix playlists'],
+      highlighted: true,
+    } 
+];
+ 

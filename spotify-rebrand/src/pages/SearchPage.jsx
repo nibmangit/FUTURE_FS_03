@@ -1,11 +1,12 @@
-import GenreCard from '../components/Cards/GenreCard';
-import {categories} from '../data/mock'
+import GenreCard from '../components/Cards/GenreCard'; 
+import { mockGenres } from '../data/mock';
 
 function SearchPage() { 
- const genres = categories;
- const glassInputClass = `w-full px-6 py-3 text-lg bg-white/5 backdrop-blur-sm border border-white/5 
+  const genres = mockGenres.filter(g => g.id.startsWith('g_00'));
+
+  const glassInputClass = `w-full px-6 py-3 text-lg bg-white/5 backdrop-blur-sm border border-white/5 
                            rounded-full text-white placeholder-white/50 focus:outline-none 
-                           focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] transition-all duration-300`;
+                           focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] transition-all duration-300`;;
 
   return (
     <div className="p-4 lg:p-8">
