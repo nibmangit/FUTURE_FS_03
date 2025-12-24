@@ -1,20 +1,54 @@
-import { useMemo } from "react";
-import HomeCard from "../components/Cards/HomeCard";
-import { mockGenres, mockHomepage, mockPlaylists } from '../data/mockdata';
+import { useEffect, useState } from "react";
+import HomeCard from "../components/Cards/HomeCard"; 
 import { useNavigate } from "react-router-dom";
+import {doc, getDoc, collection, getDocs, query, where, documentId } from 'firebase/firestore';
+import {db } from '../firebase/config';
 
 function HomePage() {
-  const navigate = useNavigate();
-  const { hero, featuredPlaylistIds, discoveryGenreIds } = mockHomepage;
- 
-  const featuredPlaylists = useMemo(() => 
-    featuredPlaylistIds.map(id => mockPlaylists[id]).filter(Boolean)
-  , [featuredPlaylistIds]);
- 
-  const categories = useMemo(() => 
-    discoveryGenreIds.map(id => mockGenres[id]).filter(Boolean)
-  , [discoveryGenreIds]);
+  const navigate = useNavigate(); 
+  const [homeData, setHomeData] = useState(null);
+  const [featuredPlaylists, setFeaturedPlaylists] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
+  useEffect(()=>{
+    const fetchAllHomeContent = async()=>{
+      try{
+        setLoading(true);
+        const configSnap = await getDoc(doc(db, "siteConfig", "homepage"));
+        if(!configSnap.exists()) return;
+        const config = configSnap.data();
+        setHomeData(config);
+
+        const playlistQuery = query(
+          collection(db, "playlists"),
+          where(documentId(), "in", config.featuredPlaylistIds)
+        );
+        const playlistSnap = await getDocs(playlistQuery);
+        setFeaturedPlaylists(playlistSnap.docs.map(doc=>({
+          id: doc.id,
+          ...doc.data()
+        })));
+
+        const genreQuery = query(
+          collection(db, "genres"),
+          where(documentId(), "in", config.discoveryGenreIds)
+        );
+        const genreSnap = await getDocs(genreQuery);
+        setCategories(genreSnap.docs.map(doc=>({id:doc.id, ...doc.data() })));
+      }catch (error){
+        console.error("Error fetching home content: ", error)
+      }finally{
+        setLoading(false)
+      }
+    }
+    fetchAllHomeContent();
+  },[]); 
+
+  if (loading) return <div className="p-20 text-white animate-pulse">Loading...</div>;
+  if (!homeData) return null;
+
+  const {hero}= homeData;
   const heroTitle =hero.title;
  
   return (
