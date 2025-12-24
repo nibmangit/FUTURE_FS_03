@@ -1,16 +1,42 @@
-import { useMemo } from "react";
+// import { useMemo } from "react";
 import { useState } from "react"
 import {useNavigate } from 'react-router-dom'; 
 import LibraryItem from "../components/Cards/LibraryItem";
-import { getLibraryContent } from "../data/libraryContent";
+// import { getLibraryContent } from "../data/libraryContent";
+import { collection, getDocs } from "firebase/firestore";
+import {db} from '../firebase/config'
+import { useEffect } from "react";
 
 function LibraryPage({onTrackSelect}) {
   const navigate = useNavigate()
-  const [activeFilter, setActiveFilter] = useState('Playlists');
+  const [activeFilter, setActiveFilter] = useState('Genres');
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
   const filters = ['Playlists', 'Artists', 'Albums', 'Tracks', 'Genres', 'Recents'];
 
-  const content = useMemo(() => getLibraryContent(), []);
-  const currentItems = content[activeFilter] || [];
+  // const content = useMemo(() => getLibraryContent(), []);
+  // const currentItems = content[activeFilter] || [];
+
+  useEffect(()=>{
+    const fetchData = async()=>{
+      setLoading(true);
+      try{
+        const collectionName = activeFilter.toLowerCase();
+        const querySnapshot = await getDocs(collection(db, collectionName));
+        const fetchedItems = querySnapshot.docs.map(doc => ({
+          id: doc.id,
+          type: activeFilter.slice(0,-1),
+          ...doc.data()
+        }))
+        setItems(fetchedItems);
+      }catch(error){
+        console.log("Error fetching from Fairbase: ", error);
+        setItems([]);
+      }
+      setLoading(false);
+    };
+    fetchData();
+  },[activeFilter])
   
   const isListLayout = activeFilter === 'Tracks' || activeFilter === 'Recents';
   const gridClass = isListLayout 
@@ -38,18 +64,28 @@ function LibraryPage({onTrackSelect}) {
         ))}
       </div>
 
+     {loading ? (
+        <div className="text-white/50 text-center py-20">Loading...</div>
+      ) : (
       <div className={gridClass}>
-        {currentItems.map((item) => (
+        {items.map((item) => (
           <LibraryItem
             key={`${item.type}-${item.id}`} 
             {...item} 
+            title={item.name || item.title}
             onClick={['Playlist', 'Album', 'Artist'].includes(item.type) 
               ? () => navigate(`/playlist/${item.id}`) 
               : null}
               onTrackSelect={onTrackSelect} 
           />
         ))}
-      </div>
+      {items.length === 0 && (
+            <div className="text-white/30 text-center col-span-full py-20 border border-dashed border-white/10 rounded-3xl">
+              This data hasn't been synced to the Cloud yet.
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
