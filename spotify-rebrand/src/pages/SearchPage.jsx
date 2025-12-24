@@ -1,17 +1,33 @@
-import { useMemo, useState } from 'react';
-import GenreCard from '../components/Cards/GenreCard'; 
-import { mockGenres } from '../data/mockdata';
+import { useEffect, useState } from 'react';
+import GenreCard from '../components/Cards/GenreCard';  
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebase/config';
 
 function SearchPage() { 
   const [searchQuery, setSearchQuery] = useState("");
+  const [genres, setGenres] = useState([]);
+  const [loading, setLoading] = useState(false);
  
-  const allGenres = useMemo(() => Object.values(mockGenres), []);
+  useEffect(()=>{
+    const fetchGenres = async()=>{
+      try{
+        setLoading(true);
+        const querySnapshot = await getDocs(collection(db, "genres"));
+        const genreList = querySnapshot.docs.map(doc=> ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setGenres(genreList);
+      }catch(error){
+        console.error("Error fetching genres: ", error);
+      }finally{
+        setLoading(false);
+      }
+    }
+    fetchGenres();
+  },[]);
  
-  const filteredGenres = useMemo(() => {
-    return allGenres.filter(g => 
-      g.name.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-  }, [searchQuery, allGenres]);
+  const filteredGenres = genres.filter(g=> g.name.toLowerCase().includes(searchQuery.toLowerCase()));
  
   const glassInputClass = `w-full px-6 py-4 text-lg bg-white/5 backdrop-blur-md border border-white/10 
                            rounded-2xl text-white placeholder-white/40 focus:outline-none 
@@ -35,8 +51,10 @@ function SearchPage() {
       </div>
  
       <h3 className="text-2xl font-bold mb-6 text-white/90">Genre Discovery</h3>
-      
-      {filteredGenres.length > 0 ? (
+
+      {loading ? (
+        <div className="text-white/40 animate-pulse">Scanning ...</div>
+      ) : filteredGenres.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {filteredGenres.map((genre) => ( 
             <GenreCard key={genre.id} {...genre} />
