@@ -1,7 +1,7 @@
 import {Heart, Music, Play } from 'lucide-react'
 import { getGlassClass, getNeonGlowClass } from '../globalStyle';
 
-const LibraryItem = ({ type, title, subtitle, image, onClick, gradient }) => {
+const LibraryItem = ({id, type, title, subtitle, image, onClick, onTrackSelect, gradient }) => {
   const isArtist = type === 'Artist';
   const shapeClass = isArtist ? 'rounded-full' : 'rounded-xl';
  
@@ -9,7 +9,7 @@ const LibraryItem = ({ type, title, subtitle, image, onClick, gradient }) => {
       return (
           <div className={`p-4 ${getGlassClass()} flex items-center justify-between group cursor-pointer 
                           hover:shadow-[0_0_12px_0_rgba(34,255,136,0.3)] min-w-full`}
-               onClick={onClick}
+               onClick={()=>onTrackSelect(id)}
           >
               <div className="flex items-center space-x-4 min-w-0">
                   <Music size={20} className="text-[#22FF88] shrink-0" />

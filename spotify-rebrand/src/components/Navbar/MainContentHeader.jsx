@@ -1,7 +1,18 @@
-import {Bell, ChevronDown, Settings, User } from 'lucide-react'
+import {Bell, ChevronDown, ChevronLeft, Menu, Settings, User } from 'lucide-react'
 import { getGlassClass } from '../globalStyle';
+import { useMemo } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-function MainContentHeader() { 
+function MainContentHeader({toggleMobileMenu}) { 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const currentPage = location.pathname.split('/')[1] || 'home';
+  const titleMap = useMemo(() => ({
+    home: 'Discovery Hub',
+    library: 'Your Library', 
+    search: 'Global Rhythms',
+    premium: 'Upgrade Your Experience',
+  }), []);
  
   const glassInputClass = `w-full px-4 py-2 text-sm bg-white/5 backdrop-blur-sm border border-white/5 
                            rounded-full text-white placeholder-white/50 focus:outline-none 
@@ -9,6 +20,26 @@ function MainContentHeader() {
 
   return (
    <div className={`sticky top-0 z-30 w-full p-4 ${getGlassClass()} rounded-none`}>
+
+    <div className="flex items-center justify-between lg:hidden"> 
+        {location.pathname !== '/' && location.pathname !== '/home' ? (
+          <button onClick={() => navigate(-1)} className="text-white/80 p-2 hover:text-[#22FF88]">
+            <ChevronLeft size={24} />
+          </button>
+        ) : (
+          <button onClick={toggleMobileMenu} className="text-white/80 p-2 hover:text-[#22FF88]">
+            <Menu size={24} />
+          </button>
+        )}
+
+        <h1 className="text-lg font-bold text-white tracking-tight">
+          {titleMap[currentPage] || 'CyberBeat'}
+        </h1>
+
+        <div className="flex items-center gap-2">
+           <User size={22} className="text-white/80" />
+        </div>
+      </div>
  
       <div className="hidden lg:flex items-center justify-between space-x-6">
         <div className="flex items-center space-x-2 w-full max-w-sm">

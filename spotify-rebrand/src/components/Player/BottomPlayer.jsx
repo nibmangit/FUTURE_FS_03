@@ -12,7 +12,7 @@ function BottomPlayer({ currentTrackId }) {
 
     return (
         <div className={`fixed bottom-0 left-0 right-0 z-50 p-3 lg:p-4 ${getGlassClass()} rounded-none lg:rounded-t-3xl bg-[#050505]/95 backdrop-blur-xl border-t border-white/5`}>
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center justify-between gap-2">
                    
                 <div className="flex items-center space-x-3 w-1/4 min-w-30 lg:w-48">
                   <div className="w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden border border-white/10">

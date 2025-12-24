@@ -4,7 +4,7 @@ import {useNavigate } from 'react-router-dom';
 import LibraryItem from "../components/Cards/LibraryItem";
 import { getLibraryContent } from "../data/libraryContent";
 
-function LibraryPage() {
+function LibraryPage({onTrackSelect}) {
   const navigate = useNavigate()
   const [activeFilter, setActiveFilter] = useState('Playlists');
   const filters = ['Playlists', 'Artists', 'Albums', 'Tracks', 'Genres', 'Recents'];
@@ -45,7 +45,8 @@ function LibraryPage() {
             {...item} 
             onClick={['Playlist', 'Album', 'Artist'].includes(item.type) 
               ? () => navigate(`/playlist/${item.id}`) 
-              : null} 
+              : null}
+              onTrackSelect={onTrackSelect} 
           />
         ))}
       </div>

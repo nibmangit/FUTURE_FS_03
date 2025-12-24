@@ -1,13 +1,6 @@
-import {Home, Library, Search, Gem} from 'lucide-react' 
 import { useLocation, useNavigate } from 'react-router-dom';
 import {getGlassClass} from '../globalStyle'
-const navItems = [
-  { id: 'home', label: 'Discover', icon: Home },
-  { id: 'library', label: 'My Library', icon: Library},
-  { id: 'search', label: 'Explore Sounds', icon: Search},
-  { id: 'premium', label: 'Cyber Pro', icon: Gem},
-];
-
+import { navItems } from '../../data/navItems';
 
 function SideNav() { 
   const location = useLocation();
