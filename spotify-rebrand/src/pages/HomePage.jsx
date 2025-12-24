@@ -3,6 +3,7 @@ import HomeCard from "../components/Cards/HomeCard";
 import { useNavigate } from "react-router-dom";
 import {doc, getDoc, collection, getDocs, query, where, documentId } from 'firebase/firestore';
 import {db } from '../firebase/config';
+import LoadingScreen from "../components/LoadingScreen";
 
 function HomePage() {
   const navigate = useNavigate(); 
@@ -45,7 +46,7 @@ function HomePage() {
     fetchAllHomeContent();
   },[]); 
 
-  if (loading) return <div className="p-20 text-white animate-pulse">Loading...</div>;
+  if (loading) return <LoadingScreen message="INITIALIZING NEURAL FEED..." />;
   if (!homeData) return null;
 
   const {hero}= homeData;

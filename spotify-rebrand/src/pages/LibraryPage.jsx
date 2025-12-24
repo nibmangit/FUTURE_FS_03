@@ -4,6 +4,7 @@ import LibraryItem from "../components/Cards/LibraryItem";
 import { collection, getDocs, doc, getDoc} from "firebase/firestore";
 import {db} from '../firebase/config'
 import { useEffect } from "react";
+import LoadingScreen from "../components/LoadingScreen";
 
 function LibraryPage({onTrackSelect}) {
   const navigate = useNavigate()
@@ -79,7 +80,7 @@ useEffect(() => {
       </div>
 
      {loading ? (
-        <div className="text-white/50 text-center py-20">Loading...</div>
+        <LoadingScreen message="ACCESSING USER ARCHIVES..." />
       ) : (
       <div className={gridClass}>
         {items.map((item) => (

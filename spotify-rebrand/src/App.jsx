@@ -7,8 +7,8 @@ import PremiumPage from './pages/PremiumPage'
 import MainContentHeader from './components/Navbar/MainContentHeader'
 import Footer from './components/Navbar/Footer' 
 import LibraryPage from './pages/LibraryPage'
-import PlaylistPage from './pages/PlaylistPage'
-import { useState } from 'react'
+import UniversalDetailsPage from './pages/UniversalDetailsPage'
+import { useEffect, useRef, useState } from 'react'
 import { useCallback } from 'react'
 import MobileMenuOverlay from './components/Navbar/MobileMenuOverlay'
 import { navItems } from './data/navItems'
@@ -17,9 +17,16 @@ import { getGlassClass } from './components/globalStyle'
 function App() {
     const location = useLocation();
     const navigate = useNavigate();
+    const mainContentRef = useRef(null);
 
     const [currentTrackId, setCurrentTrackId] = useState('');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    useEffect(() => {
+        if (mainContentRef.current) {
+            mainContentRef.current.scrollTo(0, 0);
+        }
+    }, [location.pathname]);
     
     const toggleMobileMenu = useCallback(() => {
     setIsMobileMenuOpen(prev => !prev);
@@ -38,7 +45,9 @@ function App() {
 
             <div className="flex relative z-10 h-full">
             <SideNav />
-            <main className="flex-1 h-full overflow-y-auto pb-37.5 lg:pb-32 scroll-smooth">
+            <main 
+            ref={mainContentRef}
+            className="flex-1 h-full overflow-y-auto pb-37.5 lg:pb-32 scroll-smooth">
                 <MainContentHeader toggleMobileMenu={toggleMobileMenu} />
             <Routes> 
                 <Route path='/' element={ <HomePage />} />
@@ -46,13 +55,15 @@ function App() {
                 <Route path='/search' element={ <SearchPage />} />
                 <Route path='/premium' element={ <PremiumPage />} /> 
                 <Route path='library' element ={<LibraryPage onTrackSelect={setCurrentTrackId} />} />
-                <Route path='playlist/:id' element ={<PlaylistPage onTrackSelect={setCurrentTrackId} />} />
+                <Route path="/playlist/:id" element={<UniversalDetailsPage onTrackSelect={setCurrentTrackId} />} />
+                <Route path="/album/:id" element={<UniversalDetailsPage onTrackSelect={setCurrentTrackId} />} />
+                <Route path="/artist/:id" element={<UniversalDetailsPage onTrackSelect={setCurrentTrackId} />} />
             </Routes>
             <Footer />
             </main>
             </div>
 
-            <nav className={`fixed bottom-16 left-0 right-0 z-40 p-2 lg:hidden ${getGlassClass()} rounded-t-3xl`}>
+            <nav className={`fixed bottom-16 left-0 right-0 z-50 p-2 lg:hidden ${getGlassClass()} rounded-t-3xl`}>
                 <div className="flex justify-around items-center">
                 {navItems.filter(i => !i.desktopOnly).map(item => {
                     const path = `/${item.id}`

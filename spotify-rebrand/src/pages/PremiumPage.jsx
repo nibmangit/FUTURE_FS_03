@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import PricingCard from "../components/Cards/PricingCard";  
 import {collection, getDocs} from 'firebase/firestore';
 import {db} from '../firebase/config'
+import LoadingScreen from "../components/LoadingScreen";
 
 function PremiumPage() {
   const [plans, setPlans] = useState([]);
@@ -38,11 +39,7 @@ function PremiumPage() {
       </p>
  
       {loading ? (
-          <div className="flex justify-center py-20">
-            <div className="text-[#22FF88] animate-pulse font-mono tracking-tighter">
-              CALCULATING NEURAL SUBSIDIES...
-            </div>
-          </div>
+          <LoadingScreen message="CALCULATING PREMIUM SUBSIDIES..." />
         ) : (
           <div className="flex flex-col lg:flex-row gap-8 justify-center items-stretch max-w-6xl mx-auto"> 
             {plans.map((plan) => ( 

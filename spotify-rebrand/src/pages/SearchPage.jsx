@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import GenreCard from '../components/Cards/GenreCard';  
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import LoadingScreen from '../components/LoadingScreen';
 
 function SearchPage() { 
   const [searchQuery, setSearchQuery] = useState("");
@@ -53,7 +54,7 @@ function SearchPage() {
       <h3 className="text-2xl font-bold mb-6 text-white/90">Genre Discovery</h3>
 
       {loading ? (
-        <div className="text-white/40 animate-pulse">Scanning ...</div>
+        <LoadingScreen message="SCANNING GLOBAL FREQUENCIES..." />
       ) : filteredGenres.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {filteredGenres.map((genre) => ( 
