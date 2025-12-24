@@ -1,18 +1,53 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Play, Heart, MoreVertical } from 'lucide-react';
-import TrackItem from '../components/Cards/TrackItem';
-import { mockPlaylists, mockTracks } from '../data/mockdata'
+import TrackItem from '../components/Cards/TrackItem'; 
 import { getGlassClass, getNeonGlowClass } from '../components/globalStyle';
+import {doc, getDoc, collection, query, where, documentId} from 'firebase/firestore';
+import {db} from '../firebase/config';
+
 
 const PlaylistPage = ({onTrackSelect}) => {
   const { id } = useParams();
- 
-  const playlist = mockPlaylists[id] || mockPlaylists['p_001'];
- 
-  const tracks = (playlist?.trackIds || []).map(trackId => {
-    return mockTracks[trackId];
-  }).filter(Boolean);
 
+  const [playlist, setPlaylist]= useState(null);
+  const [tracks, setTracks] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(()=>{
+    const fetchPlaylistAndTracks = async()=>{
+      setLoading(true);
+      try{
+        const playlistRef = doc(db, "playlists", id);
+        const playlistSnap = await getDoc(playlistRef);
+
+        if(playlistSnap.exists()){
+          const playlistData = playlistSnap.data();
+          setPlaylist(playlistData);
+          
+          if(playlistData.trackIds && playlistData.trackIds.length > 0 ){
+            const tracksQuery = query(
+              collection(db, "tracks"),
+              where(documentId(), "in", playlistData.trackIds )
+            );
+            const tracksSnap = await getDoc(tracksQuery);
+
+            const tracksList = tracksSnap.docs.map(doc => ({id: doc.id, ...doc.data()}));
+            setTracks(tracksList);
+          }else{
+            setTracks([]);
+          }
+        }
+      }catch(error){
+        console.error("Error fetching playlist details: ", error);
+      }finally{
+        setLoading(false);
+      }
+    };
+    fetchPlaylistAndTracks();
+  },[id]); 
+
+  if (loading) return <div className="p-20 text-center text-white animate-pulse">Loading...</div>;
   if (!playlist) return <div className="p-8 text-white">Playlist not found.</div>;
 
   return (
