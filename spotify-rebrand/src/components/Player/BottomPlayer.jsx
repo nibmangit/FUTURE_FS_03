@@ -1,6 +1,7 @@
 import { Music, Shuffle, ChevronLeft, Repeat, Volume2, Heart, Play, Pause } from "lucide-react"
 import { useState } from "react"; 
 import { mockTracks, mockArtists, mockAlbums } from "../../data/mockdata";
+import { getGlassClass, getNeonGlowClass} from "../globalStyle";
 
 function BottomPlayer({ currentTrackId }) {
     const [isPlaying, setIsPlaying] = useState(false);
@@ -10,7 +11,7 @@ function BottomPlayer({ currentTrackId }) {
     const album = track ? mockAlbums[track.albumId] : null;
 
     return (
-        <div className={`fixed bottom-0 left-0 right-0 z-50 p-3 lg:p-4 rounded-none lg:rounded-t-3xl bg-[#050505]/95 backdrop-blur-xl border-t border-white/5`}>
+        <div className={`fixed bottom-0 left-0 right-0 z-50 p-3 lg:p-4 ${getGlassClass()} rounded-none lg:rounded-t-3xl bg-[#050505]/95 backdrop-blur-xl border-t border-white/5`}>
               <div className="flex items-center justify-between gap-4">
                    
                 <div className="flex items-center space-x-3 w-1/4 min-w-30 lg:w-48">
@@ -39,7 +40,8 @@ function BottomPlayer({ currentTrackId }) {
                     <button 
                       onClick={() => setIsPlaying(!isPlaying)}
                       className={`w-12 h-12 rounded-full bg-white text-[#050505] flex items-center justify-center 
-                                  hover:scale-105 active:scale-95 transition-all duration-150 shadow-lg`}
+                                  hover:scale-105 active:scale-95 transition-all duration-150 shadow-lg
+                                  ${getNeonGlowClass()}`}
                     >
                       {isPlaying ? <Pause fill="#050505" size={20} /> : <Play fill="#050505" size={20} />}
                     </button>
@@ -55,8 +57,8 @@ function BottomPlayer({ currentTrackId }) {
                         className="h-full w-1/3 rounded-full bg-linear-to-r from-[#22FF88] to-[#00E5FF] transition-all duration-100" 
                       ></div>
                       <div
-                        className="absolute top-1/2 left-1/3 -translate-y-1/2 w-3 h-3 rounded-full bg-[#22FF88] 
-                                   transition-all duration-100 shadow-[0_0_10px_#22FF88]" 
+                        className={`absolute top-1/2 left-1/3 -translate-y-1/2 w-3 h-3 rounded-full bg-[#22FF88] 
+                                   transition-all duration-100 shadow-[0_0_10px_#22FF88] ${getNeonGlowClass()} `}
                       ></div>
                     </div>
                     <span>{track?.duration || "0:00"}</span>
@@ -70,7 +72,11 @@ function BottomPlayer({ currentTrackId }) {
                     min="0"
                     max="100"
                     defaultValue="70"
-                    className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#22FF88]" 
+                    className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#22FF88]"
+                    style={{
+                          '--tw-progress-color': '#22FF88',
+                          '--tw-track-color': '#111827',
+                      }} 
                   />
                 </div>
            

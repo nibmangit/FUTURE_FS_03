@@ -1,4 +1,5 @@
 import {Bell, ChevronDown, Settings, User } from 'lucide-react'
+import { getGlassClass } from '../globalStyle';
 
 function MainContentHeader() { 
  
@@ -7,9 +8,7 @@ function MainContentHeader() {
                            focus:border-[#00E5FF] focus:ring-1 focus:ring-[#00E5FF] transition-all duration-300`;
 
   return (
-    <div
-      className="sticky top-0 z-30 w-full p-4  rounded-none"
-    > 
+   <div className={`sticky top-0 z-30 w-full p-4 ${getGlassClass()} rounded-none`}>
  
       <div className="hidden lg:flex items-center justify-between space-x-6">
         <div className="flex items-center space-x-2 w-full max-w-sm">

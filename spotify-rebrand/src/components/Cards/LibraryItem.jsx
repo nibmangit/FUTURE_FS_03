@@ -1,4 +1,5 @@
 import {Heart, Music, Play } from 'lucide-react'
+import { getGlassClass, getNeonGlowClass } from '../globalStyle';
 
 const LibraryItem = ({ type, title, subtitle, image, onClick, gradient }) => {
   const isArtist = type === 'Artist';
@@ -6,7 +7,7 @@ const LibraryItem = ({ type, title, subtitle, image, onClick, gradient }) => {
  
   if (type === 'Track') {
       return (
-          <div className={`p-4 flex items-center justify-between group cursor-pointer 
+          <div className={`p-4 ${getGlassClass()} flex items-center justify-between group cursor-pointer 
                           hover:shadow-[0_0_12px_0_rgba(34,255,136,0.3)] min-w-full`}
                onClick={onClick}
           >
@@ -37,7 +38,7 @@ const LibraryItem = ({ type, title, subtitle, image, onClick, gradient }) => {
    
   return (
     <div 
-      className={`p-4 overflow-hidden relative group cursor-pointer 
+      className={`p-4 ${getGlassClass()} overflow-hidden relative group cursor-pointer 
                   hover:shadow-[0_0_12px_0_rgba(0,229,255,0.5)]`}
       onClick={onClick}
     >
@@ -54,7 +55,7 @@ const LibraryItem = ({ type, title, subtitle, image, onClick, gradient }) => {
       <p className="text-xs text-white/60">{type} • {subtitle}</p>
       
       <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className={`w-10 h-10 rounded-full bg-[#22FF88] text-black flex items-center justify-center `}>
+        <div className={`w-10 h-10 rounded-full bg-[#22FF88] text-black flex items-center justify-center ${getNeonGlowClass()} `}>
           <Play size={20} fill="#050505" />
         </div>
       </div>

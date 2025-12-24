@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { Play, Heart, MoreVertical } from 'lucide-react';
 import TrackItem from '../components/Cards/TrackItem';
 import { mockPlaylists, mockTracks } from '../data/mockdata'
+import { getGlassClass, getNeonGlowClass } from '../components/globalStyle';
 
 const PlaylistPage = ({onTrackSelect}) => {
   const { id } = useParams();
@@ -47,15 +48,15 @@ const PlaylistPage = ({onTrackSelect}) => {
       <div className="sticky top-0 z-20 flex items-center p-4 sm:p-8 space-x-4 bg-[#050505]/90 backdrop-blur-sm border-b border-white/5">
         <button 
           className={`w-14 h-14 rounded-full bg-[#22FF88] text-black flex items-center justify-center shadow-lg 
-                     hover:scale-105 active:scale-95 transition-transform duration-200`}
+                     ${getNeonGlowClass()} hover:scale-105 active:scale-95 transition-transform duration-200`}
         >
           <Play size={24} fill="#050505" />
         </button>
         
-        <button className="p-3 rounded-full border border-white/10 bg-white/5 hover:border-[#00E5FF] text-white/80 hover:text-[#00E5FF]">
+        <button className={`p-3 ${getGlassClass()} hover:border-[#00E5FF] text-white/80 hover:text-[#00E5FF]`}>
           <Heart size={20} />
         </button>
-        <button className="p-3 rounded-full border border-white/10 bg-white/5 hover:border-[#00E5FF] text-white/80 hover:text-[#00E5FF]">
+        <button className={`p-3 ${getGlassClass()} hover:border-[#00E5FF] text-white/80 hover:text-[#00E5FF]`}>
           <MoreVertical size={20} />
         </button>
       </div>

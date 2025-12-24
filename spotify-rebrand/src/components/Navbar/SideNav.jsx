@@ -1,6 +1,6 @@
 import {Home, Library, Search, Gem} from 'lucide-react' 
-import { useNavigate } from 'react-router-dom';
-
+import { useLocation, useNavigate } from 'react-router-dom';
+import {getGlassClass} from '../globalStyle'
 const navItems = [
   { id: 'home', label: 'Discover', icon: Home },
   { id: 'library', label: 'My Library', icon: Library},
@@ -10,9 +10,11 @@ const navItems = [
 
 
 function SideNav() { 
-  const navigate = useNavigate();
+  const location = useLocation();
+  const navigate = useNavigate(); 
+  
     return ( 
-    <div className={`hidden lg:block w-64 h-screen p-6 sticky top-0  rounded-none`}>
+    <div className={`hidden lg:block w-64 h-screen p-6 sticky top-0 ${getGlassClass()} rounded-none`}>
        <div className="flex items-center gap-3 mb-10">
             <img 
                 src="/logo.png" 
@@ -23,14 +25,18 @@ function SideNav() {
             <h2 className="text-2xl font-bold text-[#00E5FF]">CYBERBEAT</h2>
         </div>
       <nav className="space-y-4">
-        {navItems.map(item => { 
+        {navItems.map(item => {
+          const path = `/${item.id}`
+          const isActive = location.pathname === path || (location.pathname === '/' && item.id === 'home');
           return (
             <button
               key={item.id}
-              onClick={()=>navigate(`/${item.id}`)}
-              className={`flex items-center w-full p-3 rounded-xl font-medium transition-all duration-200
-                            text-white/70 hover:bg-white/5 hover:text-[#00E5FF] cursor-pointer
-                          `}
+              onClick={() => navigate(path)}
+              className={`flex items-center w-full p-3 rounded-xl font-medium transition-all duration-200 cursor-pointer
+                          ${isActive 
+                            ? 'bg-[#22FF88]/20 text-[#22FF88] shadow-lg shadow-[#22FF88]/30'
+                            : 'text-white/70 hover:bg-white/5 hover:text-[#00E5FF]'
+                          }`}
             >
               <item.icon size={20} className="mr-4" />
               <span>{item.label}</span>

@@ -58,7 +58,7 @@ function HomePage() {
       key={cat.id} 
       className={`h-32 rounded-3xl p-4 relative overflow-hidden cursor-pointer 
                   bg-linear-to-br ${cat.gradient} hover:scale-[1.02] 
-                  transition-transform duration-300 shadow-xl`}
+                  transition-transform duration-300 shadow-xl hover:shadow-[0_0_15px_0_rgba(0,229,255,0.5)]`}
     >
       
       <h3 className="text-xl font-extrabold relative z-10 text-white">{cat.name}</h3>

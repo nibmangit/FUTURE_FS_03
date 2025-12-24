@@ -1,11 +1,15 @@
 import { Check } from "lucide-react";
+import { getGlassClass, getNeonGlowClass } from "../globalStyle";
 
 function PricingCard({ name, price, features, highlighted }) { 
 
   const baseClass = highlighted
     ? 'bg-gradient-to-br from-[#22FF88] to-[#00E5FF] text-black shadow-2xl shadow-[#22FF88]/50'
-    : `text-white/90 border-white/10`;
- 
+    : `${getGlassClass()} text-white/90 border-white/10`;
+
+  const ctaClass = highlighted 
+    ? 'bg-black text-[#22FF88] hover:bg-white/90'
+    : 'bg-[#3B82F6] text-white hover:bg-[#00E5FF]';
   return (
     <div 
       className={`p-6 sm:p-8 rounded-3xl flex-1 min-w-70 transition-all duration-500 
@@ -29,8 +33,8 @@ function PricingCard({ name, price, features, highlighted }) {
       </ul>
       
       <button 
-        className={`w-full py-4 text-lg font-bold rounded-full transition-all duration-300 uppercase tracking-widest active:scale-95
-                   `}
+        className={`w-full py-4 text-lg font-bold rounded-full transition-all duration-300 uppercase tracking-widest active:scale-95 cursor-pointer
+                   ${ctaClass} ${highlighted ? getNeonGlowClass('#00E5FF') : ''}`}
       >
         {highlighted ? 'GO PREMIUM NOW' : 'TRY 7 DAYS FREE'}
       </button>
