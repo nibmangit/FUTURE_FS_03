@@ -1,7 +1,7 @@
 import { useState } from "react"
 import {useNavigate } from 'react-router-dom'; 
 import LibraryItem from "../components/Cards/LibraryItem"; 
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc} from "firebase/firestore";
 import {db} from '../firebase/config'
 import { useEffect } from "react";
 
@@ -12,26 +12,45 @@ function LibraryPage({onTrackSelect}) {
   const [loading, setLoading] = useState(false);
   const filters = ['Playlists', 'Artists', 'Albums', 'Tracks', 'Genres', 'Recents'];
   
-  useEffect(()=>{
-    const fetchData = async()=>{
-      setLoading(true);
-      try{
-        const collectionName = activeFilter.toLowerCase();
-        const querySnapshot = await getDocs(collection(db, collectionName));
-        const fetchedItems = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          type: activeFilter.slice(0,-1),
-          ...doc.data()
-        }))
-        setItems(fetchedItems);
-      }catch(error){
-        console.log("Error fetching from Fairbase: ", error);
-        setItems([]);
+useEffect(() => {
+  const fetchData = async () => {
+    setLoading(true);
+    try {
+      const collectionName = activeFilter.toLowerCase();
+      const querySnapshot = await getDocs(collection(db, collectionName)); 
+      const rawItems = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+ 
+      if (activeFilter === 'Recents') {
+        const detailedRecents = await Promise.all(rawItems.map(async (recent) => { 
+          const targetCol = recent.type.toLowerCase() + 's'; 
+          const targetRef = doc(db, targetCol, recent.itemId);
+          const targetSnap = await getDoc(targetRef);
+          
+          return {
+            ...recent,
+            ...(targetSnap.exists() ? targetSnap.data() : {}),
+            id: recent.itemId
+          };
+        }));
+        setItems(detailedRecents);
+      } else { 
+        const formattedItems = rawItems.map(item => ({
+          ...item, 
+          type: item.type || activeFilter.slice(0, -1) 
+        }));
+        setItems(formattedItems);
       }
-      setLoading(false);
-    };
-    fetchData();
-  },[activeFilter])
+    } catch (error) {
+      console.error("Error fetching from Firebase: ", error);
+      setItems([]);
+    }
+    setLoading(false);
+  };
+  fetchData();
+}, [activeFilter]);
   
   const isListLayout = activeFilter === 'Tracks' || activeFilter === 'Recents';
   const gridClass = isListLayout 
@@ -64,22 +83,25 @@ function LibraryPage({onTrackSelect}) {
       ) : (
       <div className={gridClass}>
         {items.map((item) => (
-          <LibraryItem
-            key={`${item.type}-${item.id}`} 
-            {...item} 
-            title={item.name || item.title}
-            onClick={['Playlist', 'Album', 'Artist'].includes(item.type) 
-              ? () => navigate(`/playlist/${item.id}`) 
-              : null}
+          <div key={`${item.type}-${item.id}`} className="relative group">
+            <LibraryItem
+              {...item}
+              title={item.name || item.title} 
+              subtitle={activeFilter === 'Recents' ? `Played ${item.timestamp}` : item.subtitle}
+              onClick={['Playlist', 'Album', 'Artist'].includes(item.type) 
+                ? () => navigate(`/${item.type.toLowerCase()}/${item.id}`) 
+                : null}
               onTrackSelect={onTrackSelect} 
-          />
+            />
+            
+            {activeFilter === 'Recents' && (
+              <span className="absolute top-2 right-2 bg-black/60 backdrop-blur-md text-[10px] text-[#00E5FF] px-2 py-1 rounded-md border border-[#00E5FF]/30 uppercase tracking-tighter">
+                {item.type}
+              </span>
+            )}
+          </div>
         ))}
-      {items.length === 0 && (
-            <div className="text-white/30 text-center col-span-full py-20 border border-dashed border-white/10 rounded-3xl">
-              This data hasn't been synced to the Cloud yet.
-            </div>
-          )}
-        </div>
+      </div>
       )}
     </div>
   );

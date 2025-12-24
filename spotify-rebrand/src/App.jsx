@@ -61,7 +61,7 @@ function App() {
                     <button 
                         key={item.id} 
                         onClick={() => navigate(`/${item.id}`)}
-                        className={`p-2 transition-all duration-200 ${isActive ? 'text-[#22FF88]' : 'text-white/70 hover:text-white'}`}
+                        className={`p-2 transition-all duration-200 cursor-pointer ${isActive ? 'text-[#22FF88]' : 'text-white/70 hover:text-white'}`}
                     >
                         <item.icon size={24} />
                         <span className="text-xs block">{item.label}</span>

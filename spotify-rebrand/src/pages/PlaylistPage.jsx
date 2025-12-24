@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Play, Heart, MoreVertical } from 'lucide-react';
 import TrackItem from '../components/Cards/TrackItem'; 
 import { getGlassClass, getNeonGlowClass } from '../components/globalStyle';
-import {doc, getDoc, collection, query, where, documentId} from 'firebase/firestore';
+import { doc, getDoc, collection, query, where, documentId, getDocs } from 'firebase/firestore';
 import {db} from '../firebase/config';
 
 
@@ -30,10 +30,13 @@ const PlaylistPage = ({onTrackSelect}) => {
               collection(db, "tracks"),
               where(documentId(), "in", playlistData.trackIds )
             );
-            const tracksSnap = await getDoc(tracksQuery);
+            const tracksSnap = await getDocs(tracksQuery);
 
             const tracksList = tracksSnap.docs.map(doc => ({id: doc.id, ...doc.data()}));
-            setTracks(tracksList);
+            const orderedTracks = playlistData.trackIds
+                .map(id => tracksList.find(track => track.id === id))
+                .filter(Boolean);
+            setTracks(orderedTracks);
           }else{
             setTracks([]);
           }

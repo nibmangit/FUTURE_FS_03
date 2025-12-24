@@ -23,11 +23,11 @@ function MainContentHeader({toggleMobileMenu}) {
 
     <div className="flex items-center justify-between lg:hidden"> 
         {location.pathname !== '/' && location.pathname !== '/home' ? (
-          <button onClick={() => navigate(-1)} className="text-white/80 p-2 hover:text-[#22FF88]">
+          <button onClick={() => navigate(-1)} className="text-white/80 p-2 hover:text-[#22FF88] cursor-pointer">
             <ChevronLeft size={24} />
           </button>
         ) : (
-          <button onClick={toggleMobileMenu} className="text-white/80 p-2 hover:text-[#22FF88]">
+          <button onClick={toggleMobileMenu} className="text-white/80 p-2 hover:text-[#22FF88] cursor-pointer">
             <Menu size={24} />
           </button>
         )}
@@ -36,7 +36,7 @@ function MainContentHeader({toggleMobileMenu}) {
           {titleMap[currentPage] || 'CyberBeat'}
         </h1>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 cursor-pointer">
            <User size={22} className="text-white/80" />
         </div>
       </div>
