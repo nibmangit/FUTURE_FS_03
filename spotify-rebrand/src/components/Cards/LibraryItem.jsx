@@ -3,10 +3,7 @@ import {Heart, Music, Play } from 'lucide-react'
 const LibraryItem = ({ type, title, subtitle, image, onClick, gradient }) => {
   const isArtist = type === 'Artist';
   const shapeClass = isArtist ? 'rounded-full' : 'rounded-xl';
-  
-//   const isTrackOrGenre = type === 'Track' || type === 'Genre';
-
-  // Track List Item
+ 
   if (type === 'Track') {
       return (
           <div className={`p-4 flex items-center justify-between group cursor-pointer 
@@ -23,8 +20,7 @@ const LibraryItem = ({ type, title, subtitle, image, onClick, gradient }) => {
               <Heart size={18} className="text-white/50 hover:text-red-500 transition-colors" />
           </div>
       );
-  }
-  // Genre Card Item
+  } 
   if (type === 'Genre') {
       return (
           <div 
@@ -38,8 +34,7 @@ const LibraryItem = ({ type, title, subtitle, image, onClick, gradient }) => {
           </div>
       );
   }
-  
-  // Visual Card Layout (Playlist, Artist, Album, Recent)
+   
   return (
     <div 
       className={`p-4 overflow-hidden relative group cursor-pointer 

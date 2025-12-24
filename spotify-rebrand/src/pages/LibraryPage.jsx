@@ -1,38 +1,15 @@
 import { useMemo } from "react";
 import { useState } from "react"
-import {useNavigate } from 'react-router-dom';
-import { mockAlbums, mockArtists, mockGenres, mockPlaylists, mockRecents, mockTracks } from "../data/mock";
+import {useNavigate } from 'react-router-dom'; 
 import LibraryItem from "../components/Cards/LibraryItem";
+import { getLibraryContent } from "../data/libraryContent";
 
 function LibraryPage() {
   const navigate = useNavigate()
   const [activeFilter, setActiveFilter] = useState('Playlists');
   const filters = ['Playlists', 'Artists', 'Albums', 'Tracks', 'Genres', 'Recents'];
 
-  const content = useMemo(() => ({
-    Playlists: mockPlaylists.filter(p => p).map(p => ({
-        ...p, type: 'Playlist', subtitle: p.description
-    })),
-    Artists: mockArtists.map(a => ({
-        ...a, type: 'Artist', subtitle: a.genre
-    })),
-    Albums: mockAlbums.map(a => ({
-        ...a, type: 'Album',
-    })),
-    Tracks: mockTracks.map(t => ({
-        ...t, type: 'Track', subtitle: `${t.artist} • ${t.album}`
-    })),
-    // Genres use the Global Rhythms genres for variety
-    Genres: mockGenres.filter(g => g.id.startsWith('g_00')).map(g => ({
-        title: g.name, type: 'Genre', gradient: g.gradient
-    })),
-    Recents: mockRecents.map(r => {
-        if (r.type === 'Track') return r; // Track items don't have images
-        // For visual items, use the image field
-        return { ...r, image: r.image }; 
-    }),
-  }), []);
-
+  const content = useMemo(() => getLibraryContent(), []);
   const currentItems = content[activeFilter] || [];
   
   const isListLayout = activeFilter === 'Tracks' || activeFilter === 'Recents';
@@ -62,19 +39,15 @@ function LibraryPage() {
       </div>
 
       <div className={gridClass}>
-        {currentItems.map((item, i) => (
+        {currentItems.map((item) => (
           <LibraryItem
-            key={i} 
+            key={`${item.type}-${item.id}`} 
             {...item} 
-            // Only set onClick for detailed pages (Playlist, Album, Artist)
-            onClick={item.type === 'Playlist' || item.type === 'Album' || item.type === 'Artist' ? () => navigate('/playlist') : null} 
+            onClick={['Playlist', 'Album', 'Artist'].includes(item.type) 
+              ? () => navigate(`/playlist/${item.id}`) 
+              : null} 
           />
         ))}
-        {currentItems.length === 0 && (
-            <p className="text-white/50 text-center col-span-full py-12">
-                No items found in {activeFilter}. Start adding music to your library!
-            </p>
-        )}
       </div>
     </div>
   );

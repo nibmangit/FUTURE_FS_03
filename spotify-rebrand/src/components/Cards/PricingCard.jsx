@@ -1,7 +1,6 @@
 import { Check } from "lucide-react";
 
-function PricingCard({ name, price, features, highlighted }) {
-  // const { name, price, features, highlighted } = plan;
+function PricingCard({ name, price, features, highlighted }) { 
 
   const baseClass = highlighted
     ? 'bg-gradient-to-br from-[#22FF88] to-[#00E5FF] text-black shadow-2xl shadow-[#22FF88]/50'
@@ -13,8 +12,7 @@ function PricingCard({ name, price, features, highlighted }) {
                   ${baseClass} ${highlighted ? 'scale-105 border-4 border-white/20' : ''}`}
     >
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-3xl font-extrabold">{name}</h3>
-        {highlighted && <span className="text-xs font-bold px-3 py-1 rounded-full bg-black/20 backdrop-blur-sm text-white">BEST VALUE</span>}
+        <h3 className="text-3xl font-extrabold">{name}</h3> 
       </div>
       <p className="text-5xl font-extrabold mb-6">
         {price}
