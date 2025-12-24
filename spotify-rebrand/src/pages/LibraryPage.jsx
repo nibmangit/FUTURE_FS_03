@@ -1,22 +1,17 @@
-// import { useMemo } from "react";
 import { useState } from "react"
 import {useNavigate } from 'react-router-dom'; 
-import LibraryItem from "../components/Cards/LibraryItem";
-// import { getLibraryContent } from "../data/libraryContent";
+import LibraryItem from "../components/Cards/LibraryItem"; 
 import { collection, getDocs } from "firebase/firestore";
 import {db} from '../firebase/config'
 import { useEffect } from "react";
 
 function LibraryPage({onTrackSelect}) {
   const navigate = useNavigate()
-  const [activeFilter, setActiveFilter] = useState('Genres');
+  const [activeFilter, setActiveFilter] = useState('Playlists');
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const filters = ['Playlists', 'Artists', 'Albums', 'Tracks', 'Genres', 'Recents'];
-
-  // const content = useMemo(() => getLibraryContent(), []);
-  // const currentItems = content[activeFilter] || [];
-
+  
   useEffect(()=>{
     const fetchData = async()=>{
       setLoading(true);
