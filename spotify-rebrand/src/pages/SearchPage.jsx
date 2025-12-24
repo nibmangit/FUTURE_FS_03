@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import GenreCard from '../components/Cards/GenreCard'; 
-import { mockGenres } from '../data/mock';
+import { mockGenres } from '../data/mockdata';
 
 function SearchPage() { 
   const [searchQuery, setSearchQuery] = useState("");

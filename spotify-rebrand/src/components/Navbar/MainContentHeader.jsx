@@ -33,7 +33,7 @@ function MainContentHeader() {
               <User size={16} />
             </div>
             <span className="text-sm font-medium text-white/90 hidden xl:inline">
-              GridUser-01
+              Nib Man
             </span>
             <ChevronDown size={16} className="text-white/70 hidden xl:inline" />
           </div>

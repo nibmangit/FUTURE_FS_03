@@ -1,8 +1,11 @@
 import { Play } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 
-function HomeCard({ title, subtitle, image }) {
+function HomeCard({id, title, subtitle, image }) {
+    const navigate = useNavigate();
     return (
         <div 
+            onClick={()=>navigate(`/playlist/${id}`)}
             className={`min-w-64 h-36 p-5 flex flex-col justify-end relative overflow-hidden shrink-0
                        rounded-2xl border border-white/10 hover:border-[#00E5FF]/50 
                        transition-all duration-300 group cursor-pointer shadow-lg`}

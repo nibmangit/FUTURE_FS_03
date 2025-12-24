@@ -7,8 +7,12 @@ import PremiumPage from './pages/PremiumPage'
 import MainContentHeader from './components/Navbar/MainContentHeader'
 import Footer from './components/Navbar/Footer' 
 import LibraryPage from './pages/LibraryPage'
+import PlaylistPage from './pages/PlaylistPage'
+import { useState } from 'react'
 
 function App() {
+    const [currentTrackId, setCurrentTrackId] = useState('t_001');
+
     return (
         <div className="h-screen bg-[#050505] text-white font-['Inter',sans-serif] relative">
 
@@ -22,13 +26,13 @@ function App() {
                 <Route path='/search' element={ <SearchPage />} />
                 <Route path='/premium' element={ <PremiumPage />} /> 
                 <Route path='library' element ={<LibraryPage />} />
-           
+                <Route path='playlist/:id' element ={<PlaylistPage onTrackSelect={setCurrentTrackId} />} />
             </Routes>
             <Footer />
             </main>
             </div>
 
-            <BottomPlayer />
+            <BottomPlayer currentTrackId={currentTrackId} />
         </div>
     )
 }

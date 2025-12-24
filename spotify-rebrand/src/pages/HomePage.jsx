@@ -1,9 +1,11 @@
 import { useMemo } from "react";
 import HomeCard from "../components/Cards/HomeCard";
 import { mockGenres, mockHomepage, mockPlaylists } from '../data/mockdata';
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
-const { hero, featuredPlaylistIds, discoveryGenreIds } = mockHomepage;
+  const navigate = useNavigate();
+  const { hero, featuredPlaylistIds, discoveryGenreIds } = mockHomepage;
  
   const featuredPlaylists = useMemo(() => 
     featuredPlaylistIds.map(id => mockPlaylists[id]).filter(Boolean)
@@ -33,8 +35,9 @@ const { hero, featuredPlaylistIds, discoveryGenreIds } = mockHomepage;
           </h1>
           <p className="text-white/80 text-lg mb-6">{hero.subtitle}</p>
           <button
+          onClick={()=>navigate('/library')}
           className={`px-6 py-3 font-bold rounded-full text-black transition-all duration-300 uppercase tracking-widest text-sm
-                     bg-[#22FF88] hover:bg-[#00E5FF] active:scale-95`}
+                     bg-[#22FF88] hover:bg-[#00E5FF] active:scale-95 cursor-pointer`}
           >
           {hero.ctaPrimary}
          </button> 
