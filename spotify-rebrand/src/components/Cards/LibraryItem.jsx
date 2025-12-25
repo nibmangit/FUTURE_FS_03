@@ -25,6 +25,7 @@ const LibraryItem = ({id, type, title, subtitle, image, onClick, onTrackSelect, 
   if (type === 'Genre') {
       return (
           <div 
+              style={{ background: gradient }} 
               className={`p-4 h-32 flex items-end rounded-3xl relative overflow-hidden cursor-pointer 
                           bg-linear-to-br ${gradient} hover:scale-[1.02] transition-transform duration-300 shadow-xl 
                           hover:shadow-[0_0_15px_0_rgba(0,229,255,0.5)]`}

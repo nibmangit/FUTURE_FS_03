@@ -1,8 +1,9 @@
 function GenreCard({ name, gradient, image, icon }) {
   return (
     <div 
+       style={{ background: gradient }} 
       className={`h-40 rounded-3xl p-5 flex flex-col justify-between relative overflow-hidden cursor-pointer 
-                  bg-linear-to-br ${gradient} shadow-xl hover:scale-[1.02] transition-all duration-300 
+                  bg-linear-to-br shadow-xl hover:scale-[1.02] transition-all duration-300 
                   hover:shadow-[0_0_20px_0_rgba(0,229,255,0.3)] group`}
     > 
       <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors" />

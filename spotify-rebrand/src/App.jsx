@@ -32,6 +32,22 @@ function App() {
     setIsMobileMenuOpen(prev => !prev);
     }, []);
 
+    useEffect(() => {
+  const path = location.pathname;
+ 
+  if (path === '/') document.title = "CyberBeat | The Grid";
+  else if (path === '/search') document.title = "Search | CyberBeat";
+  else if (path === '/library') document.title = "Your Library | CyberBeat";
+  else if (path === '/premium') document.title = "Premium | CyberBeat";
+ 
+  else if (path.includes('/playlist/')) document.title = "Playlist | CyberBeat";
+  else if (path.includes('/artist/')) document.title = "Artist | CyberBeat";
+  else if (path.includes('/album/')) document.title = "Album | CyberBeat";
+ 
+  else document.title = "CyberBeat";
+
+}, [location.pathname]);
+
     return (
         <div className="h-screen bg-[#050505] text-white font-['Inter',sans-serif] relative">
              <div className="fixed inset-0 bg-[#050505]">

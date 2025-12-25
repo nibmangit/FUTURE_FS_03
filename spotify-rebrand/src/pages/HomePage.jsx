@@ -12,6 +12,8 @@ function HomePage() {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const [heroImageIndex, setHeroImageIndex] = useState(0);
+
   useEffect(()=>{
     const fetchAllHomeContent = async()=>{
       try{
@@ -46,24 +48,43 @@ function HomePage() {
     fetchAllHomeContent();
   },[]); 
 
+  useEffect(()=>{
+    if(!homeData?.hero?.images) return;
+    const interval = setInterval(()=> {
+      setHeroImageIndex((pre)=>(pre+1) % homeData.hero.images.length);
+    }, 5000)
+    return ()=>clearInterval(interval);
+  },[homeData]);
+
   if (loading) return <LoadingScreen message="INITIALIZING NEURAL FEED..." />;
   if (!homeData) return null;
 
   const {hero}= homeData;
   const heroTitle =hero.title;
+  const displayImages = hero.images || [hero.image];
  
   return (
     <div className="p-4 lg:p-8">  
       <div 
         className="w-full h-[60vh] sm:h-[60vh] rounded-3xl overflow-hidden relative mb-12 cursor-pointer"
       >
-        <div className="absolute inset-0"
-        style={{ 
-          backgroundImage: `url(${hero.image})`, 
-          backgroundSize: 'cover', 
-          backgroundPosition: 'center', 
-        }} 
-      />
+      {displayImages.map((img, idx) => (
+          <div
+            key={idx}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              idx === heroImageIndex ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div 
+              className="w-full h-full"
+              style={{ 
+                backgroundImage: `url(${img})`, 
+                backgroundSize: 'cover', 
+                backgroundPosition: 'center', 
+              }} 
+            />
+          </div>
+        ))}
         <div className="absolute inset-0 bg-linear-to-br from-[#050505] to-transparent flex flex-col justify-end p-6 sm:p-10">
           <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
             {heroTitle.split(' ').slice(0, 2).join(' ')} <span className="text-[#22FF88] block">{heroTitle.split(' ').slice(2).join(' ')}</span>
@@ -91,6 +112,7 @@ function HomePage() {
   {categories.map((cat) => (
     <div 
       key={cat.id} 
+      style={{ background: cat.gradient }}
       className={`h-32 rounded-3xl p-4 relative overflow-hidden cursor-pointer 
                   bg-linear-to-br ${cat.gradient} hover:scale-[1.02] 
                   transition-transform duration-300 shadow-xl hover:shadow-[0_0_15px_0_rgba(0,229,255,0.5)]`}
@@ -100,13 +122,7 @@ function HomePage() {
       <span className="absolute right-4 bottom-4 text-4xl opacity-50 group-hover:scale-110 transition-transform">
               {cat.icon}
       </span>
-      {cat.image && (
-        <img 
-          src={cat.image} 
-          alt={cat.name}
-          className="absolute -right-2 -bottom-2 w-20 h-20 object-cover rotate-25 shadow-lg rounded-lg transition-transform duration-300 group-hover:scale-110" 
-        />
-      )}
+     
        
       <div className="absolute inset-0 bg-black/10 pointer-events-none" />
     </div>
