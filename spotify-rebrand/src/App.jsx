@@ -74,6 +74,8 @@ function App() {
                 <Route path="/playlist/:id" element={<UniversalDetailsPage onTrackSelect={setCurrentTrackId} />} />
                 <Route path="/album/:id" element={<UniversalDetailsPage onTrackSelect={setCurrentTrackId} />} />
                 <Route path="/artist/:id" element={<UniversalDetailsPage onTrackSelect={setCurrentTrackId} />} />
+
+                <Route path="*" element={<Navigate to="/" />} />
             </Routes>
             <Footer />
             </main>
