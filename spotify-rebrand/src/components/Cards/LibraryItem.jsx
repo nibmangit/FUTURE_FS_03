@@ -1,7 +1,7 @@
 import {Heart, Music, Play } from 'lucide-react'
 import { getGlassClass, getNeonGlowClass } from '../globalStyle';
 
-const LibraryItem = ({id, type, title, subtitle, image, onClick, onTrackSelect, gradient }) => {
+const LibraryItem = ({id, type, title, subtitle, image,icon, onClick, onTrackSelect, gradient }) => {
   const isArtist = type === 'Artist';
   const shapeClass = isArtist ? 'rounded-full' : 'rounded-xl';
  
@@ -31,6 +31,7 @@ const LibraryItem = ({id, type, title, subtitle, image, onClick, onTrackSelect, 
                           hover:shadow-[0_0_15px_0_rgba(0,229,255,0.5)]`}
               onClick={onClick}
           >
+              <div className="absolute top-3 z-10 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-lg">{icon}</div>
               <div className="absolute inset-0 opacity-20 bg-black/20" />
               <h3 className="text-xl font-extrabold relative z-10">{title}</h3>
           </div>

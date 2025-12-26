@@ -1,4 +1,4 @@
-function GenreCard({ name, gradient, image, icon }) {
+function GenreCard({ name, gradient, icon }) {
   return (
     <div 
        style={{ background: gradient }} 
@@ -12,15 +12,7 @@ function GenreCard({ name, gradient, image, icon }) {
       <h3 className="text-xl font-black relative z-10 leading-tight drop-shadow-md text-white">
         {name}
       </h3> 
-      {image && (
-        <img 
-          src={image} 
-          alt={name}
-          className="absolute -right-4 -bottom-4 w-24 h-24 object-contain rotate-20 
-                     opacity-80 group-hover:opacity-100 group-hover:rotate-15 
-                     transition-all duration-500 pointer-events-none"
-        />
-      )}
+      
     </div>
   );
 }
