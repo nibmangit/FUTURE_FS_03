@@ -36,8 +36,8 @@ function SearchPage() {
                            shadow-2xl shadow-black/50`;
 
   return (
-    <div className="p-4 lg:p-8 animate-in fade-in duration-500">
-      <h2 className="text-3xl font-bold mb-6 text-white tracking-tight">Global Rhythms</h2>
+    <main className="p-4 lg:p-8 animate-in fade-in duration-500">
+      <h1 className="text-3xl font-bold mb-6 text-white tracking-tight">Global Rhythms</h1>
        
       <div className="mb-12 relative group"> 
         <div className="absolute -inset-1 bg-linear-to-br from-[#00E5FF] to-[#22FF88] rounded-2xl blur opacity-10 group-focus-within:opacity-25 transition duration-500"></div>
@@ -48,6 +48,7 @@ function SearchPage() {
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search for Tracks, Artists, or Beats..." 
           className={glassInputClass}
+          aria-label="Search for tracks, artists, or beats"
         />
       </div>
  
@@ -56,17 +57,17 @@ function SearchPage() {
       {loading ? (
         <LoadingScreen message="SCANNING GLOBAL FREQUENCIES..." />
       ) : filteredGenres.length > 0 ? (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <section className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {filteredGenres.map((genre) => ( 
             <GenreCard key={genre.id} {...genre} />
           ))}
-        </div>
+        </section>
       ) : (
-        <div className="text-center py-20">
+        <section className="text-center py-20">
           <p className="text-white/40 text-lg">No genres found matching "{searchQuery}"</p>
-        </div>
+        </section>
       )}
-    </div>
+    </main>
   ); 
 }
 

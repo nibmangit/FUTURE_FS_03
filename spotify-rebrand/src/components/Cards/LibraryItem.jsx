@@ -48,6 +48,7 @@ const LibraryItem = ({id, type, title, subtitle, image,icon, onClick, onTrackSel
         <img 
             src={image} 
             alt={title} 
+            loading="lazy"
             className={`object-cover w-full h-full transition-transform duration-300 
                 ${isArtist ? 'rounded-full' : 'rounded-xl'} transition-transform duration-300 group-hover:scale-105`} 
             

@@ -36,7 +36,7 @@ const UniversalDetailsPage = ({ onTrackSelect }) => {
             typeLabel: collectionName.slice(0, -1)
           };
           setContent(normalizedContent);
-             
+             document.title = `${normalizedContent.displayTitle} | CyberBeat`;
           let trackQuery; 
           if (collectionName === "playlists") { 
             trackQuery = query(
@@ -81,30 +81,34 @@ const UniversalDetailsPage = ({ onTrackSelect }) => {
         <div className="absolute inset-0">
           <img 
             src={content.displayImage} 
-            alt="Background"
+            alt={content.displayTitle}
+            loading="lazy"
             className="w-full h-full object-cover"
             style={{ filter: 'blur(30px) brightness(0.6)', transform: 'scale(1.1)' }}
           />
         </div>
         <div className="absolute inset-0 bg-[#050505]/70" />
           
-        <div className="relative flex flex-col sm:flex-row items-center sm:items-end gap-6 z-10 text-center sm:text-left">
-          <div className="w-48 h-48 rounded-2xl shadow-2xl shadow-[#22FF88]/20 overflow-hidden shrink-0 border border-white/10">
+        <div className="relative flex flex-col sm:flex-row items-center sm:items-end gap-8 z-10 text-center sm:text-left px-6">
+          <div className="w-56 h-56 sm:w-64 sm:h-64 rounded-2xl shadow-2xl shadow-[#22FF88]/20 overflow-hidden shrink-0 border border-white/10 mt-10 sm:mt-0">
             <img 
                 src={content.displayImage}
                 alt={content.displayTitle}
                 className="w-full h-full object-cover"
+                loading="lazy"
             />
           </div>
 
-          <div className="text-center sm:text-left">
-            <span className="text-xs font-bold text-[#22FF88] uppercase tracking-[0.3em] mb-2 block">
+          <div className="flex flex-col justify-end pb-2 mt-6 sm:mt-0">
+            <span className="text-[10px] sm:text-xs font-bold text-[#22FF88] uppercase tracking-[0.4em] mb-3 block">
                 {content.typeLabel}
             </span>
             <h1 className="text-4xl sm:text-7xl font-black text-white leading-tight">
                 {content.displayTitle}
             </h1>
-            <p className="text-sm text-white/60 mt-4 max-w-xl">{content.description || content.bio || "No data stream description available."}</p>
+            <p className="text-sm text-white/60 mt-2 max-w-xl">
+                {content.description || content.bio || "No data stream description available."}
+            </p>
           </div>
         </div>
       </div>

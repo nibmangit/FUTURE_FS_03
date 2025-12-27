@@ -53,14 +53,17 @@ function App() {
              <div className="fixed inset-0 bg-[#050505]">
                 <div className="absolute inset-0 bg-linear-to-br from-[#050505] via-transparent to-[#6D28D9] opacity-70 -z-10"></div>
              </div>
-
+             <header>
             <MobileMenuOverlay
                 isOpen={isMobileMenuOpen} 
                 onClose={toggleMobileMenu}  
             />
+            </header>
 
             <div className="flex relative z-10 h-full">
+            <aside>
             <SideNav />
+            </aside>
             <main 
             ref={mainContentRef}
             className="flex-1 h-full overflow-y-auto pb-37.5 lg:pb-32 scroll-smooth">
@@ -77,7 +80,9 @@ function App() {
 
                 <Route path="*" element={<Navigate to="/" />} />
             </Routes>
+            <footer>
             <Footer />
+            </footer>
             </main>
             </div>
 

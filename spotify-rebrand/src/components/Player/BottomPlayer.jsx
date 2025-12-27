@@ -47,10 +47,12 @@ function BottomPlayer({ currentTrackId }) {
     const { track, artist, album } = trackData;
 
     return (
-        <div className={`fixed bottom-0 left-0 right-0 z-50 p-3 lg:p-4 ${getGlassClass()} rounded-none lg:rounded-t-3xl bg-[#050505]/95 backdrop-blur-xl border-t border-white/5`}>
+        <section 
+          aria-label="Music player controls"
+          className={`fixed bottom-0 left-0 right-0 z-50 p-3 lg:p-4 ${getGlassClass()} rounded-none lg:rounded-t-3xl bg-[#050505]/95 backdrop-blur-xl border-t border-white/5`}>
             <div className="flex items-center justify-between gap-2">
                  
-                <div className="flex items-center space-x-3 w-1/4 min-w-30 lg:w-48">
+                <figure className="flex items-center space-x-3 w-1/4 min-w-30 lg:w-48">
                   <div className={`w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden border border-white/10 ${loading ? 'animate-pulse' : ''}`}>
                     {album?.image ? (
                         <img src={album.image} alt={track?.title} className="w-full h-full object-cover" />
@@ -58,15 +60,15 @@ function BottomPlayer({ currentTrackId }) {
                         <Music size={20} className="text-[#00E5FF]" />
                     )}
                   </div>
-                  <div className="hidden sm:block truncate">
+                  <figcaption className="hidden sm:block truncate">
                     <p className="text-sm font-semibold truncate text-white">
                         {track?.title || (loading ? "Loading..." : "Not Playing")}
                     </p>
                     <p className="text-xs text-white/60 truncate hover:text-[#22FF88] cursor-pointer">
                         {artist?.name || "Unknown Artist"}
                     </p>
-                  </div>
-                </div>
+                  </figcaption>
+                </figure>
             
                 <div className="flex-1 max-w-xl flex flex-col items-center">
                   <div className="flex items-center space-x-6 mb-1">
@@ -75,6 +77,8 @@ function BottomPlayer({ currentTrackId }) {
                     
                     <button 
                       onClick={() => setIsPlaying(!isPlaying)}
+                      aria-pressed={isPlaying}
+                      aria-label={isPlaying ? `Pause ${track?.title}` : `Play ${track?.title}`}
                       className={`w-12 h-12 rounded-full bg-white text-[#050505] flex items-center justify-center 
                                   hover:scale-105 active:scale-95 transition-all duration-150 shadow-lg
                                   ${getNeonGlowClass()}`}
@@ -99,16 +103,16 @@ function BottomPlayer({ currentTrackId }) {
                 <div className="hidden lg:flex items-center space-x-2 w-48 justify-end">
                   <Volume2 size={20} className="text-white/70" />
                   <input
-                    type="range" min="0" max="100" defaultValue="70"
+                    type="range" min="0" max="100" aria-label="Volume control" defaultValue="70"
                     className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#22FF88]"
                   />
                 </div>
            
                 <div className="sm:hidden w-1/4 flex justify-end">
-                     <Heart size={20} className="text-white/50" />
+                     <Heart size={20} className="text-white/50" role="button" aria-label="Add to favorites" />
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 

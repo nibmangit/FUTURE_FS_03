@@ -64,9 +64,10 @@ function HomePage() {
   const displayImages = hero.images || [hero.image];
  
   return (
-    <div className="p-4 lg:p-8">  
-      <div 
+    <section  className="p-4 lg:p-8">  
+      <section 
         className="w-full h-[60vh] sm:h-[60vh] rounded-3xl overflow-hidden relative mb-12 cursor-pointer"
+        aria-label="Featured hero"
       >
       {displayImages.map((img, idx) => (
           <div
@@ -98,37 +99,41 @@ function HomePage() {
           {hero.ctaPrimary}
          </button> 
         </div>
-      </div>
+      </section>
        
+       <section aria-labelledby="featured-playlists">
       <h2 className="text-2xl font-bold mb-6 text-white">Featured for You</h2>
       <div className="flex space-x-4 pb-4 overflow-x-scroll no-scrollbar">
         {featuredPlaylists.map((playlist) => (
           <HomeCard key={playlist.id} {...playlist} />
         ))}
       </div>
- 
+      </section>
+
+      <section aria-labelledby="trending-categories">
       <h2 className="text-2xl font-bold mt-10 mb-6 text-white">Trending Categories</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-  {categories.map((cat) => (
-    <div 
-      key={cat.id} 
-      style={{ background: cat.gradient }}
-      className={`h-32 rounded-3xl p-4 relative overflow-hidden cursor-pointer 
-                  bg-linear-to-br ${cat.gradient} hover:scale-[1.02] 
-                  transition-transform duration-300 shadow-xl hover:shadow-[0_0_15px_0_rgba(0,229,255,0.5)]`}
-    >
-      
-      <h3 className="text-xl font-extrabold relative z-10 text-white">{cat.name}</h3>
-      <span className="absolute right-4 bottom-4 text-4xl opacity-50 group-hover:scale-110 transition-transform">
-              {cat.icon}
-      </span>
-     
-       
-      <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+      {categories.map((cat) => (
+        <article 
+          key={cat.id} 
+          style={{ background: cat.gradient }}
+          className={`h-32 rounded-3xl p-4 relative overflow-hidden cursor-pointer 
+                      bg-linear-to-br ${cat.gradient} hover:scale-[1.02] 
+                      transition-transform duration-300 shadow-xl hover:shadow-[0_0_15px_0_rgba(0,229,255,0.5)]`}
+        >
+          
+          <h3 className="text-xl font-extrabold relative z-10 text-white">{cat.name}</h3>
+          <span className="absolute right-4 bottom-4 text-4xl opacity-50 group-hover:scale-110 transition-transform">
+                  {cat.icon}
+          </span>
+        
+          
+          <div className="absolute inset-0 bg-black/10 pointer-events-none" />
+        </article>
+      ))}
     </div>
-  ))}
-</div>
-    </div>
+    </section>
+    </section>
   );
 }
 

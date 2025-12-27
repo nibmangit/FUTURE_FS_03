@@ -59,10 +59,12 @@ useEffect(() => {
     : 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4';
 
   return (
-    <div className="p-4 lg:p-8">
-      <h2 className="text-3xl font-bold mb-6 text-white lg:hidden">Your Library</h2>
+    <main className="p-4 lg:p-8">
+      <h1 className="text-3xl font-bold mb-6 text-white lg:hidden">Your Library</h1>
 
-      <div className="flex space-x-3 overflow-x-scroll pb-4 mb-8 no-scrollbar">
+      <nav 
+        aria-label="Library filters"
+        className="flex space-x-3 overflow-x-scroll pb-4 mb-8 no-scrollbar">
         {filters.map(filter => (
           <button
             key={filter}
@@ -77,14 +79,14 @@ useEffect(() => {
             {filter}
           </button>
         ))}
-      </div>
+      </nav>
 
      {loading ? (
         <LoadingScreen message="ACCESSING USER ARCHIVES..." />
       ) : (
-      <div className={gridClass}>
+      <section className={gridClass}>
         {items.map((item) => (
-          <div key={`${item.type}-${item.id}`} className="relative group">
+          <article key={`${item.type}-${item.id}`} className="relative group">
             <LibraryItem
               {...item}
               title={item.name || item.title} 
@@ -96,15 +98,17 @@ useEffect(() => {
             />
             
             {activeFilter === 'Recents' && (
-              <span className="absolute top-2 right-2 bg-black/60 backdrop-blur-md text-[10px] text-[#00E5FF] px-2 py-1 rounded-md border border-[#00E5FF]/30 uppercase tracking-tighter">
+              <span 
+                aria-label={`Item type: ${item.type}`}
+                className="absolute top-2 right-2 bg-black/60 backdrop-blur-md text-[10px] text-[#00E5FF] px-2 py-1 rounded-md border border-[#00E5FF]/30 uppercase tracking-tighter">
                 {item.type}
               </span>
             )}
-          </div>
+          </article>
         ))}
-      </div>
+      </section>
       )}
-    </div>
+    </main>
   );
 }
 

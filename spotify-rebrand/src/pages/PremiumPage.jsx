@@ -30,10 +30,10 @@ function PremiumPage() {
   },[]);
 
   return (
-    <div className="p-4 lg:p-8 animate-in fade-in duration-700"> 
-      <h2 className="text-3xl font-extrabold mb-2 text-white text-center">
+    <main className="p-4 lg:p-8 animate-in fade-in duration-700"> 
+      <h1 className="text-3xl font-extrabold mb-2 text-white text-center">
         Unlock The <span className="text-[#00E5FF]">Full Spectrum</span>
-      </h2>
+      </h1>
       <p className="text-lg text-white/70 mb-12 text-center">
         Experience music without limits, powered by the Grid.
       </p>
@@ -41,17 +41,17 @@ function PremiumPage() {
       {loading ? (
           <LoadingScreen message="CALCULATING PREMIUM SUBSIDIES..." />
         ) : (
-          <div className="flex flex-col lg:flex-row gap-8 justify-center items-stretch max-w-6xl mx-auto"> 
+          <section className="flex flex-col lg:flex-row gap-8 justify-center items-stretch max-w-6xl mx-auto"> 
             {plans.map((plan) => ( 
               <PricingCard key={plan.id} {...plan} />
             ))}
-          </div>
+          </section>
         )}
  
       <p className="mt-12 text-center text-white/30 text-sm uppercase tracking-widest">
         Secure Encryption • Cancel Anytime • Neural-Link Ready
       </p>
-    </div>
+    </main>
   );
 } 
 
