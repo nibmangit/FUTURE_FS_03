@@ -1,7 +1,8 @@
 import {Heart, Music, Play } from 'lucide-react'
 import { getGlassClass, getNeonGlowClass } from '../globalStyle';
+import { memo } from 'react';
 
-const LibraryItem = ({id, type, title, subtitle, image,icon, onClick, onTrackSelect, gradient }) => {
+const LibraryItem = memo(({id, type, title, subtitle, image,icon, onClick, onTrackSelect, gradient }) => {
   const isArtist = type === 'Artist';
   const shapeClass = isArtist ? 'rounded-full' : 'rounded-xl';
  
@@ -10,6 +11,8 @@ const LibraryItem = ({id, type, title, subtitle, image,icon, onClick, onTrackSel
           <div className={`p-4 ${getGlassClass()} flex items-center justify-between group cursor-pointer 
                           hover:shadow-[0_0_12px_0_rgba(34,255,136,0.3)] min-w-full`}
                onClick={()=>onTrackSelect(id)}
+               role="button"
+              aria-label={`Play track: ${title} by ${subtitle}`}
           >
               <div className="flex items-center space-x-4 min-w-0">
                   <Music size={20} className="text-[#22FF88] shrink-0" />
@@ -25,7 +28,7 @@ const LibraryItem = ({id, type, title, subtitle, image,icon, onClick, onTrackSel
   if (type === 'Genre') {
       return (
           <div 
-              style={{ background: gradient }} 
+              style={{ background: gradient, contentVisibility: 'auto' }} 
               className={`p-4 h-32 flex items-end rounded-3xl relative overflow-hidden cursor-pointer 
                           bg-linear-to-br ${gradient} hover:scale-[1.02] transition-transform duration-300 shadow-xl 
                           hover:shadow-[0_0_15px_0_rgba(0,229,255,0.5)]`}
@@ -46,7 +49,7 @@ const LibraryItem = ({id, type, title, subtitle, image,icon, onClick, onTrackSel
     >
       <div className={`aspect-square w-full mb-3 overflow-hidden ${shapeClass}`}>
         <img 
-            src={image} 
+            src={image?.replace('/upload/', '/upload/q_auto,f_auto,w_300/')} 
             alt={title} 
             loading="lazy"
             className={`object-cover w-full h-full transition-transform duration-300 
@@ -64,6 +67,6 @@ const LibraryItem = ({id, type, title, subtitle, image,icon, onClick, onTrackSel
       </div>
     </div>
   );
-};
+});
 
 export default LibraryItem;

@@ -1,4 +1,6 @@
-function GenreCard({ name, gradient, icon }) {
+import { memo } from "react";
+
+const GenreCard = memo(({ name, gradient, icon }) => {
   return (
     <div 
        style={{ background: gradient }} 
@@ -15,6 +17,6 @@ function GenreCard({ name, gradient, icon }) {
       
     </div>
   );
-}
+});
 
 export default GenreCard;

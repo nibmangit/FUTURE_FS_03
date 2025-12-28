@@ -80,7 +80,7 @@ const UniversalDetailsPage = ({ onTrackSelect }) => {
       <div className="relative pt-12 pb-8 px-4 sm:px-8 overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src={content.displayImage} 
+            src={content.displayImage?.replace('/upload/', '/upload/q_auto,f_auto,w_200/')}
             alt={content.displayTitle}
             loading="lazy"
             className="w-full h-full object-cover"
@@ -92,10 +92,11 @@ const UniversalDetailsPage = ({ onTrackSelect }) => {
         <div className="relative flex flex-col sm:flex-row items-center sm:items-end gap-8 z-10 text-center sm:text-left px-6">
           <div className="w-56 h-56 sm:w-64 sm:h-64 rounded-2xl shadow-2xl shadow-[#22FF88]/20 overflow-hidden shrink-0 border border-white/10 mt-10 sm:mt-0">
             <img 
-                src={content.displayImage}
+                src={content.displayImage?.replace('/upload/', '/upload/q_auto,f_auto,w_600/')}
                 alt={content.displayTitle}
                 className="w-full h-full object-cover"
-                loading="lazy"
+                loading="eager"
+                fetchpriority="high"
             />
           </div>
 

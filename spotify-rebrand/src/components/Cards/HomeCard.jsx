@@ -13,14 +13,15 @@ function HomeCard({id, title, subtitle, image }) {
                        transition-all duration-300 group cursor-pointer shadow-lg`}
           >  
 
-            <div 
-                className="absolute inset-0 transition-transform duration-700 group-hover:scale-150" 
-                style={{ 
-                    backgroundImage: `url(${image})`, 
-                    backgroundSize: 'cover', 
-                    backgroundPosition: 'center' 
-                }} 
+            <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-150 will-change-transform">
+            <img  
+                src={image?.replace('/upload/', '/upload/q_auto,f_auto,w_400/')} 
+                alt=""  
+                loading="lazy" 
+                className="w-full h-full object-cover"
+                style={{backgroundSize: 'cover'}}
             />
+            </div>
              
             <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/20 to-transparent" />
              

@@ -34,6 +34,7 @@ function TrackItem({ track, index, onSelect }) {
   return (
     <div 
       onClick={() => onSelect(track.id)}
+      style={{ contentVisibility: 'auto' }}
       className={`flex items-center p-3 rounded-xl cursor-pointer transition-all duration-200 ${trackGlow}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}

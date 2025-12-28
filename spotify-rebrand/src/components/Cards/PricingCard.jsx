@@ -26,7 +26,8 @@ function PricingCard({ name, price, features, highlighted }) {
       <ul role="list" className={`list-none mb-10 text-sm ${highlighted ? 'text-black/80' : 'text-white/80'}`}>
         {features.map((f, i) => (
           <li key={i} role="listItem" className="flex items-start mb-3">
-            <span className={highlighted ? 'text-black mr-3 mt-1' : 'text-[#22FF88] mr-3 mt-1'}><Check size={18} /></span>
+            <span className={highlighted ? 'text-black mr-3 mt-1' : 'text-[#22FF88] mr-3 mt-1'}>
+              <Check size={18} aria-hidden="true" /></span>
             <span>{f}</span>
           </li>
         ))}

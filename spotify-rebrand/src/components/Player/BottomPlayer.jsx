@@ -55,7 +55,11 @@ function BottomPlayer({ currentTrackId }) {
                 <figure className="flex items-center space-x-3 w-1/4 min-w-30 lg:w-48">
                   <div className={`w-12 h-12 rounded-lg bg-white/5 flex items-center justify-center overflow-hidden border border-white/10 ${loading ? 'animate-pulse' : ''}`}>
                     {album?.image ? (
-                        <img src={album.image} alt={track?.title} className="w-full h-full object-cover" />
+                        <img 
+                        src={album.image.replace('/upload/', '/upload/q_auto,f_auto,w_100/')}
+                        alt={track?.title} 
+                        loading="lazy"
+                        className="w-full h-full object-cover" />
                     ) : (
                         <Music size={20} className="text-[#00E5FF]" />
                     )}
@@ -103,7 +107,7 @@ function BottomPlayer({ currentTrackId }) {
                 <div className="hidden lg:flex items-center space-x-2 w-48 justify-end">
                   <Volume2 size={20} className="text-white/70" />
                   <input
-                    type="range" min="0" max="100" aria-label="Volume control" defaultValue="70"
+                    type="range" min="0" max="100" aria-label="Volume control" defaultValue="70" title="Volume"
                     className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#22FF88]"
                   />
                 </div>

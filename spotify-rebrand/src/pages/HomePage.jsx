@@ -70,22 +70,21 @@ function HomePage() {
         aria-label="Featured hero"
       >
       {displayImages.map((img, idx) => (
-          <div
-            key={idx}
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-              idx === heroImageIndex ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <div 
-              className="w-full h-full"
-              style={{ 
-                backgroundImage: `url(${img})`, 
-                backgroundSize: 'cover', 
-                backgroundPosition: 'center', 
-              }} 
-            />
-          </div>
-        ))}
+              <div
+                key={idx}
+                className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                  idx === heroImageIndex ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                <img  
+                  src={img.replace('/upload/', '/upload/q_auto,f_auto,w_1200/')}
+                  alt={`Featured Slide ${idx + 1}`} 
+                  loading={idx === 0 ? "eager" : "lazy"} 
+                  fetchpriority={idx === 0 ? "high" : "auto"}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
         <div className="absolute inset-0 bg-linear-to-br from-[#050505] to-transparent flex flex-col justify-end p-6 sm:p-10">
           <h1 className="text-3xl sm:text-5xl font-extrabold text-white leading-tight">
             {heroTitle.split(' ').slice(0, 2).join(' ')} <span className="text-[#22FF88] block">{heroTitle.split(' ').slice(2).join(' ')}</span>
