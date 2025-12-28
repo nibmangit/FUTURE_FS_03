@@ -36,8 +36,7 @@ function SearchPage() {
                            shadow-2xl shadow-black/50`;
 
   return (
-    <main className="p-4 lg:p-8 animate-in fade-in duration-500">
-      <h1 className="text-3xl font-bold mb-6 text-white tracking-tight">Global Rhythms</h1>
+    <main className="p-4 lg:p-8 animate-in fade-in duration-500"> 
        
       <div className="mb-12 relative group"> 
         <div className="absolute -inset-1 bg-linear-to-br from-[#00E5FF] to-[#22FF88] rounded-2xl blur opacity-10 group-focus-within:opacity-25 transition duration-500"></div>
