@@ -59,8 +59,7 @@ useEffect(() => {
     : 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4';
 
   return (
-    <main className="p-4 lg:p-8">
-      <h1 className="text-3xl font-bold mb-6 text-white lg:hidden">Your Library</h1>
+    <main className="p-4 lg:p-8"> 
 
       <nav 
         aria-label="Library filters"
